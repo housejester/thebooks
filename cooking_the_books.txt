@@ -1,0 +1,7 @@
+1. First step...create it:
+grails create-app oasis
+
+2. Tweak the landing page (inline styles...ick):
+vi web-app/index.gsp 
+vi web-app/css/main.css
+
