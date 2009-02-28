@@ -2,6 +2,18 @@
 grails create-app oasis
 
 2. Tweak the landing page (inline styles...ick):
-vi web-app/index.gsp 
-vi web-app/css/main.css
+edit web-app/index.gsp 
+edit web-app/css/main.css
 
+3. Get it into github
+Create the github repo then follow the directions to get initial commit in
+git init
+git add .
+git commit -m 'Initial commit'
+git remote add origin git@github.com:housejester/thebooks.git
+git push origin master
+Now we're safe.  Lets keep going.
+
+4. Add login form to welcome page
+edit web-app/index.gsp
+edit web-app/css/main.css
