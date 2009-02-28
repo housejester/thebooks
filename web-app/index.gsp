@@ -16,12 +16,7 @@
 			
 			<g:if test="${session.user}">
 		        <div class="dialog">
-					<h1>Great, you're in.  Here is what we have so far:</h1>
-		            <ul>
-		              <g:each var="c" in="${grailsApplication.controllerClasses}">
-		                    <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-		              </g:each>
-		            </ul>
+					<h1>Great, you're in.  Lets hit <g:link controller="user" action="home">the books</g:link>!</h1>
 		        </div>
 			</g:if>
 			<g:else>

@@ -29,8 +29,17 @@ in the init method
 
 7. Create the User Controller (for the login action)
 grails create-controller com.thebooks.controllers.User
-edit grails-app/controllers/com/thebooks/controllers.UserController.groovy to add in the login action and logic.  We'll
+edit grails-app/controllers/com/thebooks/controllers/UserController.groovy to add in the login action and logic.  We'll
 just show a 'login' view on login fail, and redirect to '/' on success
 create grails-app/views/user/login.gsp (similar to homepage login form)
 tweak web-app/index.gsp to have a session.user check.  If present, show the controller list, otherwise show the login form.
 
+8. Create a better user homepage.
+edit grails-app/controller/com/thebooks/controllers/UserController.groovy to add a home action and have the login action
+ 	redirect to the home action on login success
+add grails-app/views/user/home.gsp and drop in the controller list section of index.gsp
+take out the controller list from index.gsp and replace it with a link to the user home action.
+
+9.  Add a logout action
+edit grails-app/controller/com/thebooks/controllers/UserController.groovy to add a home action
+edit grails-app/views/user/home.gsp to have a logout link
