@@ -17,3 +17,20 @@ Now we're safe.  Lets keep going.
 4. Add login form to welcome page
 edit web-app/index.gsp
 edit web-app/css/main.css
+
+5. Create the User domain object.  It'll just have id, email, and password for now.
+grails create-domain-class com.thebooks.domain.User
+edit grails-app/domain/com/thebooks/domain/User.groovy to add the fields/constraints
+
+6. Add a user in bootstrap so we can avoid doing registration code for now.
+edit grails-app/conf/BootStrap.groovy and add 
+new User(email:"admin@test.com",password:"Password").save()
+in the init method
+
+7. Create the User Controller (for the login action)
+grails create-controller com.thebooks.controllers.User
+edit grails-app/controllers/com/thebooks/controllers.UserController.groovy to add in the login action and logic.  We'll
+just show a 'login' view on login fail, and redirect to '/' on success
+create grails-app/views/user/login.gsp (similar to homepage login form)
+tweak web-app/index.gsp to have a session.user check.  If present, show the controller list, otherwise show the login form.
+
