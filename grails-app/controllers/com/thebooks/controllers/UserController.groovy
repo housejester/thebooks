@@ -1,0 +1,22 @@
+package com.thebooks.controllers
+
+class UserController {
+	def login = { 
+		def user = com.thebooks.domain.User.findByEmail(params['email']) 
+		session.user = user 
+	    if (user) 
+	     	redirect(controller:'user', action:'home') 
+	  	else 
+			render(view:'login')
+	 }
+	def home = {
+		def user = session.user
+		if(!user){
+			render(view : 'login')
+		}
+	}
+	def logout = {
+		session.invalidate();
+		redirect(uri:'/');
+	}
+}
