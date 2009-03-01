@@ -13,9 +13,11 @@ class UserController {
 		def user = session.user
 		if(!user){
 			render(view : 'login')
+			return;
 		}
 		if(!user.setupComplete){
 			render(view : 'homeNotSetupYet')
+			return;
 		}
 	}
 	def logout = {

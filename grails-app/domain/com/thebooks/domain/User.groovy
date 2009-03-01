@@ -6,6 +6,7 @@ class User {
 	String email 
 	String password 
 	Boolean setupComplete = false
+	Boolean developer = false
 	String toString() { "$email" } 
 
 	def static constraints = 
@@ -13,5 +14,6 @@ class User {
         email(email:true) 
         password(blank:false, password:true) 
         setupComplete() 
+        developer() 
 	}
 }

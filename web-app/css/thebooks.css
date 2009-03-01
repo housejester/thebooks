@@ -70,6 +70,13 @@ input:focus, select:focus, textarea:focus {
     margin: 10px 0 5px 0;
     padding: 5px 5px 5px 15px;
 }
+ul.in-line {
+    list-style: none;
+}
+ul.in-line li{
+	margin-left:10px;
+	float:left;
+}
 .errors ul {
     list-style: none;
     padding: 0;	
@@ -113,12 +120,4 @@ form label span{
 }
 #nav{
 	float:right;
-}
-.links ul{
-	list-style: none;
-    padding: 0;	
-}
-.links ul li{
-	margin-left:10px;
-	float:left;
 }

@@ -12,14 +12,23 @@
 	        </div>	
 	        <div class="logo"><img src="${createLinkTo(dir:'images',file:'thebooks_logo2.jpg')}" alt="TheBooks" /></div>	
 			<g:if test="${session.user}">
-				<div id="nav" class="links">
-					<ul>
+				<div id="nav">
+					<ul class="in-line">
 						<li><g:link controller="user" action="logout">Logout</g:link></li>
 					</ul>
 				</div>
 			</g:if>
 			
-	        <g:layoutBody />		
+	        <g:layoutBody />
+
+			<g:if test="${session.user && session.user.developer}">
+				<h1>(Developers) Here is what we have so far:</h1>
+			    <ul>
+			      <g:each var="c" in="${grailsApplication.controllerClasses}">
+			            <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
+			      </g:each>
+			    </ul>
+			</g:if>
 		</div>
     </body>	
 </html>
