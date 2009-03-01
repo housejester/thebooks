@@ -47,3 +47,12 @@ edit grails-app/views/user/home.gsp to have a logout link
 10.  Add some questions to the user home for getting them going (what accounts, just let me in, etc).  Maybe it'll be a lightbox?
 
 11.  Add an accountList and letMeIn actions on UserController to handle the options presented by the initial questions.
+
+12.  Tweak/cleanup all the initial css.  Pulled out a grails layout and css file and made 
+	borrowed image from http://www.istockphoto.com/file_closeup/what/specific_objects/books/576520_horizontal_books_icon.php?id=576520
+	need to buy it if keeping it.
+	used http://www.prodraw.net/favicon/index.php to generate favicons for logos
+
+13.	generated the grails scaffolding templates so that all the dynamic scaffold-ed views use the grails layout:
+grails install-templates
+edit src/templates/scaffolding/*.gsp to change the meta layout tag to point to "grails"

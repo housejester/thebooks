@@ -4,7 +4,7 @@
 		<meta name="layout" content="main" />
     </head>
     <body>
-		<div id="container" class="welcome">
+		<div id="body" class="welcome">
         	<h1>The Books:  We help you keep 'em straight.</h1>
         	<p>
 				The Books help you to plan your finances...kind of a home-budget app.  The aim is to help you

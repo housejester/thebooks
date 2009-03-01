@@ -1,0 +1,113 @@
+html * {
+    margin: 0;
+}
+
+/* GENERAL */
+.spinner {
+    padding: 5px;
+    position: absolute;
+    right: 0;
+}
+
+body {
+    background: #fff;
+    color: #333;
+    font: 11px verdana, arial, helvetica, sans-serif;
+}
+
+a:link, a:visited, a:hover {
+    color: #666;
+    font-weight: bold;
+    text-decoration: none;
+} 
+
+h1 {
+    color: #006dba;
+    font-weight: normal;
+    font-size: 16px;
+    margin: .8em 0 .3em 0;
+}
+
+input, select, textarea {
+    background-color: #fcfcfc;
+    border: 1px solid #ccc;
+    font: 11px verdana, arial, helvetica, sans-serif;
+    margin: 2px 0;
+    padding: 2px 4px;
+}
+
+select {
+   padding: 2px 2px 2px 0;
+}
+
+textarea {
+	width: 250px;
+	height: 150px;
+	vertical-align: top;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #b2d1ff;
+}
+
+/* MESSAGES AND ERRORS */
+.message {
+    background: #f3f8fc url(../images/skin/information.png) 8px 50% no-repeat;
+    border: 1px solid #b2d1ff;
+    color: #006dba;
+    margin: 10px 0 5px 0;
+    padding: 5px 5px 5px 30px
+}
+.messages .message{
+	width:450px;
+	margin: 10px auto;
+}
+
+.errors {
+    background: #fff3f3;
+    border: 1px solid red;
+    color: #cc0000;
+    margin: 10px 0 5px 0;
+    padding: 5px 0 5px 0;
+}
+.errors ul {
+    list-style: none;
+    padding: 0;	
+}
+.errors li {
+	background: url(../images/skin/exclamation.png) 8px 0% no-repeat;
+    line-height: 16px;
+    padding-left: 30px;
+}
+
+select.error {
+    border: 1px solid red;
+}
+input.error {
+    border: 1px solid red;
+}
+
+/* general form formatting */
+form label{
+	display:block;
+	width: 200px;
+}
+form label span{
+   display:block;
+}
+
+/* index.gsp */
+#container {
+	padding:20px;
+	width:700px;
+	margin:0 auto;
+}
+
+#grid {
+	height: 50;
+	border: 1px solid green;
+	margin:10px;
+	margin-left: auto;
+	margin-right:auto;
+	padding:10px;
+}
