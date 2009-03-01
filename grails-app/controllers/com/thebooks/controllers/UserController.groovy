@@ -26,6 +26,7 @@ class UserController {
 	
 	def letMeIn = {
 		session.user.setupComplete = true
+		session.user.save();
 		redirect(action:'home')
 	}
 }
