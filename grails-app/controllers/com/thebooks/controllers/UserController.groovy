@@ -2,7 +2,9 @@ package com.thebooks.controllers
 
 class UserController {
 	def login = { 
-		def user = com.thebooks.domain.User.findByEmail(params['email']) 
+		def user = null
+		if(request.method == 'POST')
+		 	user = com.thebooks.domain.User.findByEmail(params['email']) 
 		session.user = user 
 	    if (user) 
 	     	redirect(controller:'user', action:'home') 
@@ -12,7 +14,7 @@ class UserController {
 	def home = {
 		def user = session.user
 		if(!user){
-			render(view : 'login')
+			redirect(controller:'user', action : 'login')
 			return;
 		}
 		if(!user.setupComplete){

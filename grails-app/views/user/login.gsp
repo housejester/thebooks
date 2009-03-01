@@ -4,8 +4,7 @@
 		<meta name="layout" content="main" />
     </head>
     <body>
-		<div id="container" class="user-login">
-			<div id="login-box">
+		<div id="login-box">
 			<h1>Please Login</h1>
 			<g:form controller="user" action="login" method="post">
 				<label><span>Email:</span><input id="email" name="email" type="text" value="${params.email}"></label>

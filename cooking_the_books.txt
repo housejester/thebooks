@@ -73,3 +73,6 @@ edit src/templates/scaffolding/*.gsp to change the meta layout tag to point to "
 18.  Add a 'developer' flag onto user
 
 19.  Move the 'developers' section into the main layout for developer users.  Would like a developer layout?	
+
+20.  Move the body tag up into main.gsp and have it establish the naming convention for the body div class name (controllerName-actionName)
+

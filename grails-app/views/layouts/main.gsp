@@ -19,7 +19,15 @@
 				</div>
 			</g:if>
 			
-	        <g:layoutBody />
+			<g:if test="${webRequest.controllerName}">
+				<g:set var="bodyName" value="${webRequest.controllerName + '-' + webRequest.actionName}" />
+			</g:if>
+			<g:else>
+				<g:set var="bodyName" value="welcome" />
+			</g:else>
+			<div id="body" class="${bodyName}">
+	        	<g:layoutBody />
+			</div>
 
 			<g:if test="${session.user && session.user.developer}">
 				<h1>(Developers) Here is what we have so far:</h1>

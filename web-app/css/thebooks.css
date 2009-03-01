@@ -104,6 +104,9 @@ form label span{
 }
 
 /* index.gsp */
+#body {
+	clear:both;
+}
 #container {
 	padding:20px;
 	width:700px;
