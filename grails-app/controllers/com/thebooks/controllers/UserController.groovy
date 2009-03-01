@@ -1,13 +1,16 @@
 package com.thebooks.controllers
 
 class UserController {
-	def beforeInterceptor = [action:this.&checkLoggedIn,except:['login','logout','noAccess']]
-	
+	def beforeInterceptor = [action:this.&checkLoggedIn,except:['login','logout','register','noAccess']]
+
+	def user = null
+
 	def checkLoggedIn = {
 		if(!session.user){
 			redirect(controller:'user', action : 'login')
 			return false
 		}
+		user = session.user
 	}
 	
 	def login = { 
@@ -20,7 +23,6 @@ class UserController {
 			render(view:'login')
 	 }
 	def home = {
-		def user = session.user
 		if(!user.setupComplete){
 			render(view : 'homeNotSetupYet')
 			return;
@@ -36,10 +38,22 @@ class UserController {
 	}
 	
 	def letMeIn = {
-		session.user.setupComplete = true
-		session.user.save();
+		user.setupComplete = true
+		user.save();
 		redirect(action:'home')
 	}
 	def noAccess = {
+	}
+	def register = {
+		if(request.method == 'POST'){
+			user = new com.thebooks.domain.User(params)
+			if(params['password'] != params['confirm_password'])
+				user.errors.reject("user.confirm_password.match")
+			if(!user.hasErrors() && user.save()){
+				session.user = user
+				redirect(action:'home')
+				return;
+			}
+		}
 	}
 }

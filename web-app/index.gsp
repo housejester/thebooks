@@ -26,6 +26,7 @@
 					<label><span>Password:</span><input id="password" name="password" type="password"></label>
 					<input id="login" type="submit" value="Login"/>
 				</g:form>
+				Not a user yet?  <g:link controller="user" action="register">Register</g:link>.
 			</div>
 		</g:else>
     </body>

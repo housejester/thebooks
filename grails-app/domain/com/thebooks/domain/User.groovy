@@ -11,8 +11,8 @@ class User {
 
 	def static constraints = 
 	{ 
-        email(email:true) 
-        password(blank:false, password:true) 
+        email(blank:false,email:true,unique:true) 
+        password(blank:false, size:5..15, password:true) 
         setupComplete() 
         developer() 
 	}

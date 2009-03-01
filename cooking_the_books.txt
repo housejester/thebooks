@@ -89,4 +89,15 @@ def checkLoggedIn = {
 }
 No deep linking support for now.
 
+22. So the todo is down to d & e (do the grid and do user registration). 
+It would also be nice to support a demo mode.  A temp user would be created for the life of the session so users could try it with absolutely no
+setup/sense of commitment.  The would be given a way to register with the test data they'd setup if interested (basically just update the 
+current temp user to have a real email and password).
+
+23. Apparently really avoiding getting to the grid part :)  Registration?
+Add register action to User Controller
+Add register view
+Add validation and validation keys to messages.properties
+Added a custom reject message for password and confirm not matching
+VERY basic registration at this point.
 
