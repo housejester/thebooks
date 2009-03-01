@@ -19,4 +19,13 @@ class UserController {
 		session.invalidate();
 		redirect(uri:'/');
 	}
+	
+	def accountList = {
+		/* eventually, move this to an AccountController */
+	}
+	
+	def letMeIn = {
+		session.user.setupComplete = true
+		redirect(action:'home')
+	}
 }

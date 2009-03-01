@@ -296,3 +296,24 @@ th.desc a {
 	display:block;
 	clear:both;
 }
+#container.user-home{
+	text-align:center;
+}
+#container.user-home #tell-us-more div{
+	text-align:left;
+	width : 400px;
+	border: 1px solid black;
+	margin:10px;
+	margin-left: auto;
+	margin-right:auto;
+	padding:10px;
+}	
+#container.user-home #grid {
+	width: 300;
+	height: 50;
+	border: 1px solid green;
+	margin:10px;
+	margin-left: auto;
+	margin-right:auto;
+	padding:10px;
+}

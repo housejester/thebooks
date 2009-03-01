@@ -5,11 +5,13 @@ class User {
 	Long version 
 	String email 
 	String password 
+	Boolean setupComplete = false
 	String toString() { "$email" } 
 
 	def static constraints = 
 	{ 
         email(email:true) 
         password(blank:false, password:true) 
+        setupComplete() 
 	}
 }

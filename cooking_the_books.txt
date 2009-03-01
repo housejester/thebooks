@@ -43,3 +43,7 @@ take out the controller list from index.gsp and replace it with a link to the us
 9.  Add a logout action
 edit grails-app/controller/com/thebooks/controllers/UserController.groovy to add a home action
 edit grails-app/views/user/home.gsp to have a logout link
+
+10.  Add some questions to the user home for getting them going (what accounts, just let me in, etc).  Maybe it'll be a lightbox?
+
+11.  Add an accountList and letMeIn actions on UserController to handle the options presented by the initial questions.
