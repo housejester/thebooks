@@ -14,6 +14,9 @@ class UserController {
 		if(!user){
 			render(view : 'login')
 		}
+		if(!user.setupComplete){
+			render(view : 'homeNotSetupYet')
+		}
 	}
 	def logout = {
 		session.invalidate();

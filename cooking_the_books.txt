@@ -56,3 +56,14 @@ edit grails-app/views/user/home.gsp to have a logout link
 13.	generated the grails scaffolding templates so that all the dynamic scaffold-ed views use the grails layout:
 grails install-templates
 edit src/templates/scaffolding/*.gsp to change the meta layout tag to point to "grails"
+
+14.  More tweaking.  Made accountList use the main layout.
+
+15.  Lets pull out a separate view for the "not setup yet" splash screen.  logic in the gsp is bad mm-kay.
+
+16.  At the moment, my to-do list is:
+ 	a) I really want to pull up the body div into the layout.  Need to figure out how to reference the controller/action from the layout.
+	b) Need to pull the logout link and the developer actions into the main layout as well.
+	c) Lock the controllers down so they'll require login
+	d) Um...do the grid.
+	
