@@ -39,7 +39,7 @@ class UserController {
 	
 	def letMeIn = {
 		user.setupComplete = true
-		user.save();
+		user.merge()
 		redirect(action:'home')
 	}
 	def noAccess = {
