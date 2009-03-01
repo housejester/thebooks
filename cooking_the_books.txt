@@ -66,4 +66,6 @@ edit src/templates/scaffolding/*.gsp to change the meta layout tag to point to "
 	b) Need to pull the logout link and the developer actions into the main layout as well.
 	c) Lock the controllers down so they'll require login
 	d) Um...do the grid.
+
+17.  Move the logout link into the main layout for logged in users
 	

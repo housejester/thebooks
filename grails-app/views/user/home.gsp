@@ -9,7 +9,6 @@
 			<div id="grid">
 				...show the grid...
 			</div>
-			<g:link action="logout">Logout</g:link>
 		
 			<h1>(Developers) Here is what we have so far:</h1>
 		    <ul>

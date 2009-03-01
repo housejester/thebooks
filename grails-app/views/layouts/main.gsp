@@ -11,6 +11,14 @@
 	            <img src="${createLinkTo(dir:'images',file:'spinner.gif')}" alt="Spinner" />
 	        </div>	
 	        <div class="logo"><img src="${createLinkTo(dir:'images',file:'thebooks_logo2.jpg')}" alt="TheBooks" /></div>	
+			<g:if test="${session.user}">
+				<div id="nav" class="links">
+					<ul>
+						<li><g:link controller="user" action="logout">Logout</g:link></li>
+					</ul>
+				</div>
+			</g:if>
+			
 	        <g:layoutBody />		
 		</div>
     </body>	

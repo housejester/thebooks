@@ -111,3 +111,14 @@ form label span{
 	margin-right:auto;
 	padding:10px;
 }
+#nav{
+	float:right;
+}
+.links ul{
+	list-style: none;
+    padding: 0;	
+}
+.links ul li{
+	margin-left:10px;
+	float:left;
+}
