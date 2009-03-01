@@ -4,7 +4,7 @@
 		<meta name="layout" content="main" />
     </head>
     <body>
-		<h1>Your latest cash-burn:</h1>
+		<h1>Your Latest Cash-Burn</h1>
 		<div id="grid">
 			...show the grid...
 		</div>
