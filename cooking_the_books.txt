@@ -76,3 +76,17 @@ edit src/templates/scaffolding/*.gsp to change the meta layout tag to point to "
 
 20.  Move the body tag up into main.gsp and have it establish the naming convention for the body div class name (controllerName-actionName)
 
+21.  Lock down the UserController and the UserBrowser Controller.  Eventually we'll switch to something a bit more sophisticated.  
+add a before interceptor to the User and UserBrowser controllers.  The interceptor will redirect to login if no user is logged in.
+So the UserController one looks like so:
+def beforeInterceptor = [action:this.&checkLoggedIn,except:['login','logout','noAccess']]
+
+def checkLoggedIn = {
+	if(!session.user){
+		redirect(controller:'user', action : 'login')
+		return false
+	}
+}
+No deep linking support for now.
+
+

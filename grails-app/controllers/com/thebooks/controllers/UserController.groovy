@@ -1,22 +1,26 @@
 package com.thebooks.controllers
 
 class UserController {
+	def beforeInterceptor = [action:this.&checkLoggedIn,except:['login','logout','noAccess']]
+	
+	def checkLoggedIn = {
+		if(!session.user){
+			redirect(controller:'user', action : 'login')
+			return false
+		}
+	}
+	
 	def login = { 
-		def user = null
-		if(request.method == 'POST')
-		 	user = com.thebooks.domain.User.findByEmail(params['email']) 
-		session.user = user 
-	    if (user) 
+		if(request.method == 'POST'){
+		 	session.user = com.thebooks.domain.User.findByEmail(params['email']) 
+		}
+	    if (session.user) 
 	     	redirect(controller:'user', action:'home') 
 	  	else 
 			render(view:'login')
 	 }
 	def home = {
 		def user = session.user
-		if(!user){
-			redirect(controller:'user', action : 'login')
-			return;
-		}
 		if(!user.setupComplete){
 			render(view : 'homeNotSetupYet')
 			return;
@@ -35,5 +39,7 @@ class UserController {
 		session.user.setupComplete = true
 		session.user.save();
 		redirect(action:'home')
+	}
+	def noAccess = {
 	}
 }
