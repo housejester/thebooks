@@ -101,3 +101,7 @@ Add validation and validation keys to messages.properties
 Added a custom reject message for password and confirm not matching
 VERY basic registration at this point.
 
+24.  Time for the grid.  Pull it from the CDN
+http://ajax.googleapis.com/ajax/libs/dojo/1.2/dojo/dojo.xd.js
+
+

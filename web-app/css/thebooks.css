@@ -124,3 +124,82 @@ form label span{
 #nav{
 	float:right;
 }
+/* tables */
+table {
+	border-collapse:collapse;
+    border: 1px solid #ccc;
+    width: 100%
+}
+tr {
+    border: 0;
+}
+td, th { 
+    font: 11px verdana, arial, helvetica, sans-serif;
+    line-height: 12px;
+    padding: 5px 6px;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    background: #fff url(../images/skin/shadow.jpg);
+    color: #666;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 17px;
+    padding: 2px 6px;
+}
+th a:link, th a:visited, th a:hover {
+    color: #333;
+    display: block;
+    font-size: 10px;
+    text-decoration: none;
+    width: 100%;
+}
+th.asc a, th.desc a {
+    background-position: right;
+    background-repeat: no-repeat;
+}
+th.asc a {
+    background-image: url(../images/skin/sorted_asc.gif);
+}
+th.desc a {
+    background-image: url(../images/skin/sorted_desc.gif);
+}
+table tr:first-child th{
+	text-align:center;
+}
+.odd{
+    background: #f7f7f7;
+}
+.even{
+    background: #fff;
+}
+.neg {
+	color: red;
+}
+.pos {
+	color: green;
+}
+.amt {
+	text-align:right;
+}
+colgroup.account-info{
+	border-left: 2px solid #CCCCCC;
+}
+colgroup.account-info col:first-child{
+	border-right:1px dashed #CCCCCC;
+}
+td.stacked .top {
+	float:left;
+	padding-bottom:5px;
+}	
+td.stacked .bottom {
+	float:right;
+	font-size:.9em;
+}
+td.stacked .bottom a{
+	color:green;
+}
+tr td:first-child{
+	white-space:nowrap;
+}
