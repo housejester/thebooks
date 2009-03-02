@@ -13,6 +13,7 @@ body {
     background: #fff;
     color: #333;
     font: 11px verdana, arial, helvetica, sans-serif;
+	text-align:center;
 }
 
 a:link, a:visited, a:hover {
@@ -110,7 +111,9 @@ form label span{
 #container {
 	padding:20px;
 	width:700px;
-	margin:0 auto;
+	text-align:left;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 #grid {
