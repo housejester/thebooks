@@ -104,4 +104,8 @@ VERY basic registration at this point.
 24.  Time for the grid.  Pull it from the CDN
 http://ajax.googleapis.com/ajax/libs/dojo/1.2/dojo/dojo.xd.js
 
+25.  Fucking dojo.  Ugh.  I'm just gonna play with straight tables for a bit.
 
+26.  May want to move un-reconciled transactions automatically.  So if you have a tx on 3-15 and a tx is reconciled
+on 3-19 but the 3-15 hasn't hit the bank yet (some slow restaurant), then "thebooks" would automatically move that 
+tx from 3-15 to 3-20.

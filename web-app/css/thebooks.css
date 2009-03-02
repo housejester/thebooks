@@ -165,7 +165,7 @@ th.asc a {
 th.desc a {
     background-image: url(../images/skin/sorted_desc.gif);
 }
-table tr:first-child th{
+tr.head1 th{
 	text-align:center;
 }
 .odd{
@@ -183,23 +183,33 @@ table tr:first-child th{
 .amt {
 	text-align:right;
 }
-colgroup.account-info{
+tr .sep{
 	border-left: 2px solid #CCCCCC;
-}
-colgroup.account-info col:first-child{
 	border-right:1px dashed #CCCCCC;
 }
-td.stacked .top {
+.stacked .top {
 	float:left;
 	padding-bottom:5px;
 }	
-td.stacked .bottom {
+.stacked .bottom {
 	float:right;
 	font-size:.9em;
 }
-td.stacked .bottom a{
+.stacked .bottom a{
 	color:green;
 }
-tr td:first-child{
+.next-scheduled td{
+	border-bottom:1px dashed orange;
+}
+.future{
+	color: #CCCCCC;
+}
+#container .future a{
+	font-weight:normal;
+}
+.date{
 	white-space:nowrap;
+}
+.reconciled .description, .reconciled .date{
+	text-decoration:line-through;
 }
