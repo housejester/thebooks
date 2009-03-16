@@ -1,0 +1,406 @@
+<html>
+    <head>
+        <title>TheBooks:  User Home</title>
+		<meta name="layout" content="main" />
+		<script type="text/javascript">
+			var oasis = {};
+			oasis.Grid = function(config){
+				this.config = config;
+				var table = [];
+				buildTable(table, config.data);
+				document.getElementById(config.view).innerHTML = table.join('');
+			}
+			function buildTable(buff, data){
+				buff.push('<table style="table-layout:fixed" class="grid"><thead><tr><th>Count</th>');
+				var keys = [];
+				for(var key in data[0]){
+					var val = data[key];
+					if(typeof val !== 'function'){
+						keys.push(key);
+						buff.push('<th>');
+						buff.push(key);
+						buff.push('</th>');
+					}
+				}
+				buff.push('</tr></thead><tbody>');
+				var len = data.length;
+				for(var i=0;i<len;i++){
+					buff.push('<tr><td>');
+					buff.push(i+1);
+					buff.push('</td>');
+					for(var j=0;j<keys.length;j++){
+						buff.push('<td>');
+						buff.push(data[i][keys[j]]);
+						buff.push('</td>');
+					}
+					buff.push('</tr>');
+				}
+				buff.push('</tbody></table>');
+			}
+		</script>
+		<script type="text/javascript">
+			function init(){
+				var start = new Date();
+				
+				var BOOKS = [
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+				{ title:"Ender's Game", author:"Orson <span style='color:red'>Scott Card</span>", pages:324, published:"Jun 1977"},
+					{ title:"The Ultimate Hitchhiker's Guide", author:"Douglas Adams", pages:815, published:"May 1986"}
+				];
+				var grid = new oasis.Grid({
+					data : BOOKS,
+					view : 'book-list'
+				})
+				var end = (new Date()) - start;
+				document.getElementById('timing').innerHTML = end;
+			}
+			function scopeTest1(){
+				env.add(
+					function(){
+						var Component = env.require("Component");
+						env.provide("Grid", Grid);
+						function Grid(){
+							alert('f me. component = '+Component);
+						}
+						setTimeout(function(){alert('Grid: '+Grid)});
+						new Grid();
+					}
+				);
+			}
+			function scopeTest2(){
+				oasis.using(
+					"Component"
+				).run(function(env){
+					var Component = env.Component;
+					function Grid(){
+						alert('f me. component = '+Component);
+					}
+					setTimeout(function(){alert('Grid: '+Grid)});
+					new Grid();
+				});
+			}
+			function scopeTest3(){
+				oasis.define(
+					"oasis.grid.Grid",
+					["Component"],
+					function(env){
+						var Component = env.Component;
+						function Grid(name){
+							alert('f me3. component = '+Component+' name = '+name);
+						}
+						new Grid("inner");
+						
+						function GridHelper(){
+							alert('i can help...');
+						}
+						oasis.provide("oasis.grid.GridHelper", GridHelper);
+						return Grid;
+					}
+				);
+				oasis.define(
+					"nada",
+					["oasis.grid.Grid"],
+					function(env){
+						var grid = env['oasis.grid.Grid'];
+						new grid('outer');
+					}
+				);
+				oasis.using2(
+					["oasis.grid.Grid"],
+					function(env){
+						var grid = env['oasis.grid.Grid'];
+						new grid('outer2');
+					}
+				);
+				oasis.using2(
+					["oasis.grid.GridHelper"],
+					function(env){
+						var helper = env['oasis.grid.GridHelper'];
+						new helper();
+					}
+				);
+			}
+			setTimeout(init, 0);
+			setTimeout(scopeTest3, 10);
+			setTimeout(function(){
+				window.Component = "foob...";
+			}, 500);
+		</script>
+		<script type="text/javascript" id="_scopeTest3">
+			oasis._loaded = {};
+			oasis.define = function(name, deps, fn){
+				console.log('define');
+				return new future2(name, deps, fn);
+			}
+			oasis.using2 = function(deps, fn){
+				this.define(null, deps, fn);
+			}
+			oasis.provide = function(name, fn){
+				oasis._loaded[name] = fn;
+			}
+			var future2 = function(name, deps, fn){
+				this.name = name;
+				this.deps = deps;
+				this.env = {};
+				this.run(fn);
+			}
+			future2.prototype.run = function(fn){
+				if(this._ready){
+					fn(this.env);
+				}
+				for(var i=0;i<this.deps.length;i++){
+					if(typeof oasis._loaded[this.deps[i]] === 'undefined' && typeof  window[this.deps[i]] === 'undefined'){
+						var self = this;
+						setTimeout(function(){
+							self.run(fn);
+						}, 10);
+						return;
+					}
+					this.env[this.deps[i]] = oasis._loaded[this.deps[i]] || window[this.deps[i]];
+				}
+				this._ready = true;
+				var ret = fn(this.env);
+				if(this.name){
+					oasis._loaded[this.name] = ret;
+				}
+			}
+		</script>
+		<script type="text/javascript" id="_scopeTest2">
+			oasis.using = function(){
+				return new future(arguments);
+			}
+			var future = function(dependencies){
+				this.deps = dependencies;
+				this.env = {};
+			}
+			future.prototype.run = function(fn){
+				if(this._ready){
+					fn(this.env);
+				}
+				for(var i=0;i<this.deps.length;i++){
+					if(typeof  window[this.deps[i]] === 'undefined'){
+						var self = this;
+						setTimeout(function(){
+							self.run(fn);
+						}, 10);
+						return;
+					}
+					this.env[this.deps[i]] = window[this.deps[i]];
+				}
+				this._ready = true;
+				fn(this.env);
+			}
+		</script>
+		<script type="text/javascript" id="_scopeTest1">
+			window.env = {
+				add : function(fn){
+					try{
+						fn(this);
+					}catch(e){
+						setTimeout(function(){
+							window.env.add(fn);
+						}, 100);
+					}
+				},
+				require : function(name){
+					if( typeof window[name] === 'undefined'){
+						throw "Required module '"+name+"' is not loaded yet";
+					}
+					return window[name];
+				},
+				provide :function(name, fn){
+				}
+			}
+		</script>
+		<script type="text/javascript" id="_scopeTest4">
+		({
+			name 	: "Grid",
+			module : function(){
+				var Grid = function(){
+					
+				}
+				return Grid;
+			}
+		});
+		</script>
+    </head>
+    <body>
+		<h1>Cash-Burn for March (today is March 19, 2009)</h1>
+		<div id="timing"></div>
+		<div id="book-list"></div>
+	</body>
+</html>

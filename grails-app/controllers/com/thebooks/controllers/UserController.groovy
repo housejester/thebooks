@@ -28,6 +28,12 @@ class UserController {
 			return;
 		}
 	}
+	def dojo = {
+		render(view:'dojo-home')
+	}
+	def oasis = {
+		render(view:'oasis-home')
+	}
 	def logout = {
 		session.invalidate();
 		redirect(uri:'/');

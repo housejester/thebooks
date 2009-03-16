@@ -13,21 +13,21 @@
 						"description" : "Costco",
 						"tags" : [ "food" ],
 						"amount" : -21340,
-						"account" : { "$ref" : "/accounts/010142" }
+						"account" : "/accounts/010142"
 					},
 					{
 						"date" : "2009-03-16",
 						"description" : "His Paycheck",
 						"tags" : [ "pay",'his' ],
 						"amount" : 192139,
-						"account" : { "$ref" : "/accounts/010142" }
+						"account" : "/accounts/010142" 
 					},
 					{
 						"date" : "2009-03-01",
 						"description" : "Rent",
 						"tags" : [ "bill", "housing" ],
 						"amount" : -125000,
-						"account" : { "$ref" : "/accounts/010122" }
+						"account" : "/accounts/010122" 
 					}
 				]
 			}

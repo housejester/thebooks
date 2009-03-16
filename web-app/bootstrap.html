@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<script type="text/javascript" src="js/oasis/bootstrap.js"></script>
+		<script type="text/javascript">
+			Modules.add({
+				name : "before"
+			});
+		</script>
+		<script type="text/javascript" src="js/oasis/ModuleContainer.js"></script>
+		<script type="text/javascript">
+			Modules.add({
+				name : "after"
+			});
+			Modules.using(["Foo", "Bar"], function(){});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

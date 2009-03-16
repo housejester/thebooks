@@ -105,15 +105,15 @@ form label span{
 }
 
 /* index.gsp */
-#body {
-	clear:both;
-}
 #container {
 	padding:20px;
 	width:700px;
 	text-align:left;
 	margin-left:auto;
 	margin-right:auto;
+}
+#body {
+	clear:both;
 }
 
 #grid {

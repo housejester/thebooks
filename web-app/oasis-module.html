@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<meta name="page-controller" content="thebooks.pages.Login"/>
+		<meta name="modules-base" content="js"/>
+		<script type="text/javascript" src="js/oasis/oasis.js"></script>
+		<script type="text/javascript">
+			function doOnLoad(){
+				define("Foo", function(){return function(){alert('hi');}});
+				console.log(window.Foo);
+				define(
+					"Bar", 
+					["Foo"], 
+					function(env){
+						console.log("IN BAR");
+						console.log(env.Foo.toSource());
+						return 'bar value';
+					}
+				);
+				oasis.define({
+					name 		: "Foo.Delayed", 
+					requires 	: ["Baz"], 
+					module 	: function(env){
+						console.log('in foo.delayed');
+						console.log(env.Baz.toSource());
+						return "I was delayed...";
+					}
+				});
+				oasis.using(["Foo.Delayed"], function(env){
+					console.log("I don't like waiting for some delayed thing...like " + env["Foo.Delayed"] + " was.");
+				})
+				oasis.define({
+					requires : ["Foo"],
+					module : function(env){
+						console.log('I have Foo...see:'+env.Foo)
+					}
+				})
+				setTimeout(function(){
+					console.log('loading baz...');
+					define("Baz", function(){return "Baz is slow..."});
+				}, 1000);
+			}
+		</script>
+		
+	</head>
+	<body onload="doOnLoad();">
+		
+	</body>
+</html>

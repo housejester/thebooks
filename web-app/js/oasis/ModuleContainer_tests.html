@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/logger/assets/skins/sam/logger.css&2.7.0/build/yuitest/assets/skins/sam/yuitest.css"> 
+		<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.7.0/build/yahoo-dom-event/yahoo-dom-event.js&2.7.0/build/logger/logger-min.js&2.7.0/build/yuitest/yuitest-min.js"
+		<script type="text/javascript" src="bootstrap.js"></script>
+		<script type="text/javascript" src="ModuleContainer.js"></script>
+	</head>
+	<body class="yui-skin-sam">
+		<div id="testLogger"></div>
+		<script type="text/javascript">
+	    	var suite = new YAHOO.tool.TestSuite("ModuleContainer Suite");
+   			suite.add(new YAHOO.tool.TestCase({
+		        name : "Initial tests",
+		        testAddShouldNotCallModuleFunction : function () {
+		            var Assert = YAHOO.util.Assert;
+					var module = {
+						name :  "Foo",
+						module : function(){
+							Assert.fail("Shouln't have called the module fn.");
+						}
+					};
+					Modules.add(module);
+					Assert.areSame(module, Modules.lookup("Foo"));
+		        }
+		    }));    
+
+		    YAHOO.util.Event.onDOMReady(function (){
+		        //create the logger
+		        var logger = new YAHOO.tool.TestLogger("testLogger");
+		        YAHOO.tool.TestRunner.add(suite);
+
+		        //run the tests
+		        YAHOO.tool.TestRunner.run();
+		    });
+		</script>
+	</body>
+</html>
