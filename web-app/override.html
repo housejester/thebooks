@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<script type="text/javascript">
+			function onLoad(){
+				var base = {
+					"foo" : "foo value",
+					"bar" : "bar value"
+				}
+				var overrides = {
+					"bar" : "new bar value",
+					"baz" : "baz value"
+				}
+				override(base, overrides);
+				
+				document.getElementById('foo').innerHTML = overrides.foo;
+				document.getElementById('bar').innerHTML = overrides.bar;
+				document.getElementById('baz').innerHTML = overrides.baz;
+			}
+			function override(base, overrides){
+				if(overrides.__proto__ && overrides instanceof base.constructor){
+					var fn = new Function();
+					fn.prototype = base;
+					overrides.__proto__ = new fn();
+				}
+			}
+		</script>
+	</head>
+	<body onload="onLoad()">
+		<div id="foo"></div>
+		<div id="bar"></div>
+		<div id="baz"></div>
+	</body>
+</html>

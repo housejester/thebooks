@@ -1,8 +1,9 @@
 if(typeof Modules === 'undefined'){
 	var Modules = {
-		add : function(config){
-			Modules = config.moduleContainer();
-			Modules.add.apply(Modules, arguments);
+		add : function(config){ 
+			var ModuleContainer = config.module();
+			Modules = new ModuleContainer();
+			Modules.add(config);
 		}
 	};
 }
@@ -13,16 +14,23 @@ Modules.add({
 		var ModuleContainer = function(){
 			this._MODULES = {};
 		}
+		ModuleContainer.thunk = function(obj, method){
+			return function(){
+				var value = obj[method].apply(obj, arguments);
+				obj[method] = ModuleContainer.valueFn(value);
+				return value;
+			}
+		}
+		ModuleContainer.valueFn = function(value){
+			return function(){
+				return value;
+			}
+		}
 		ModuleContainer.prototype = {
 			add : function(moduleConfig){
+				console.log('adding '+moduleConfig.name);
 				this._MODULES[moduleConfig.name] = moduleConfig;
-				var module = moduleConfig.module;
-				moduleConfig.module = function(){
-					var result = module.apply(moduleConfig, arguments);
-					moduleConfig.module = function(){
-						return result;
-					}
-				}
+				moduleConfig.module = ModuleContainer.thunk(moduleConfig, 'module');
 			},
 			using : function(reqs, fn){
 				
@@ -31,14 +39,7 @@ Modules.add({
 				return this._MODULES[name];
 			}
 		}
+		this.module = ModuleContainer.valueFn(ModuleContainer);
 		return ModuleContainer;
-	},
-	moduleContainer : function(){
-		var ModuleContainer = this.module();
-		this.module = function(){
-			return ModuleContainer;
-		}
-		return new ModuleContainer();
 	}
 });
-
