@@ -31,7 +31,13 @@ Modules.add({
 		BootModules.prototype = {
 			add : function(module) {
 				ADDED[module.name] = module;
-				loadModuleContainer(this);
+				if(CONTAINER_NAME === module.name){
+					clearTimeout(interval);
+					var ModuleContainer = module.module();
+					Modules = new ModuleContainer(this);
+					utils.forEach(DELAYED_USING, Modules.using, Modules, 'apply');
+					DELAYED_USING = null;
+				}
 			},
 			get : function(name){
 				return ADDED[name] || this.parent.get(name);
@@ -39,17 +45,6 @@ Modules.add({
 			using : function(){
 				DELAYED_USING.push(arguments);
 				interval = interval || utils.die(errors.timedOut, BOOT_TIMEOUT);
-				loadModuleContainer(this);
-			}
-		}
-
-		function loadModuleContainer(parent){
-			if(ADDED[CONTAINER_NAME]){
-				clearTimeout(interval);
-				var ModuleContainer = ADDED[CONTAINER_NAME].module();
-				Modules = new ModuleContainer(parent);
-				utils.forEach(DELAYED_USING, Modules.using, Modules, 'apply');
-				DELAYED_USING = null;
 			}
 		}
 
