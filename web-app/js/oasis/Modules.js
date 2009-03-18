@@ -7,95 +7,98 @@ if(typeof Modules === 'undefined'){
 		}
 	};
 }
-
+/**
+ @class oasis.Modules Provides a bootstrapping mechanism to load up a real
+		ModuleContainer instance.  This guy's sole purpose is to delay all
+		modules until it can resolve a ModuleContainer module to take
+		over the "Modules" management duties.
+*/
 Modules.add({
 	name : "oasis.Modules",
 	module: function (){
+		var utils = this.utils();
+		var errors = this.errors;
+		var interval = null;
+
 		var ADDED = {};
 		var DELAYED_USING = [];
-		var interval = null;
-		var valueFn = function(value){
-			return function(){
-				return value;
-			}
+		var CONTAINER_NAME = utils.readMeta('Modules:ContainerName', 'oasis.ModuleContainer');
+		var BOOT_TIMEOUT = utils.readMeta('Modules:BootTimeout', 2000);
+		
+		var BootModules = function(parent){
+			this.parent = parent || {get:utils.valueFn()};
 		}
-		var Modules = function(){
-		}
-		Modules.prototype = {
+		BootModules.prototype = {
 			add : function(module) {
 				ADDED[module.name] = module;
+				loadModuleContainer(this);
 			},
-			lookup : function(name){
-				return ADDED[name];
+			get : function(name){
+				return ADDED[name] || this.parent.get(name);
 			},
 			using : function(){
 				DELAYED_USING.push(arguments);
-				if(!interval && !this._tryUsing()){
-					this._createTryUsingInterval();
-				}
-			},
-			_createTryUsingInterval : function(){
-				var self = this;
-				interval = setInterval(function(){
-					console.log('try...');
-					self._tryUsing();
-				}, 30);
-				setTimeout(function(){
-					self._cancelTryUsingInterval(
-						"It seems to be taking too long to find a container.  Make sure that "+
-						"a container provider (e.g. oasis.Container) is loaded ASAP after Modules.js"
-					);
-				}, 2000);
-			},
-			_cancelTryUsingInterval : function(errMsg){
-				if(interval){
-					clearInterval(interval);
-					interval = null;
-					if(errMsg){
-						throw new Error(errMsg);
-					}
-				}
-			},
-			_tryUsing : function(){
-				var config = ADDED[this._getModuleContainerName()];
-				if(config){
-					this._cancelTryUsingInterval();
-					var ModuleContainer = config.module();
-					var container = new ModuleContainer();
-					Modules = container;
-					this._drainAddedModules();
-					this._drainDelayedUsing();
-					return true;
-				}
-				return false;
-			},
-			_drainAddedModules : function(){
-				for(var key in ADDED){
-					if(typeof ADDED[key] === 'object'){
-						Modules.add(ADDED[key]);
-					}
-				}
-				ADDED = null;
-			},
-			_drainDelayedUsing : function(){
-				for(var i=0;i<DELAYED_USING.length;i++){
-					Modules.using.apply(Modules, DELAYED_USING[i]);
-				}
-				DELAYED_USING = null;
-			},
-			_getModuleContainerName : function(){
-				var name = 'oasis.ModuleContainer';
-				var meta = document.getElementsByName("modules:ModuleContainer");
-				if(meta.length > 0){
-					name = meta[0].content;
-				}else if(!document.body){
-					return null;
-				}
-				this._getModuleContainerName = valueFn(name);
-				console.log('name is '+name);
-				return name;
+				interval = interval || utils.die(errors.timedOut, BOOT_TIMEOUT);
+				loadModuleContainer(this);
 			}
 		}
-		return Modules;
+
+		function loadModuleContainer(parent){
+			if(ADDED[CONTAINER_NAME]){
+				clearTimeout(interval);
+				var ModuleContainer = ADDED[CONTAINER_NAME].module();
+				Modules = new ModuleContainer(parent);
+				utils.forEach(DELAYED_USING, Modules.using, Modules, 'apply');
+				DELAYED_USING = null;
+			}
+		}
+
+		return BootModules;
+	},
+	utils : function(){
+		var utils = {
+			readMeta : function(name, defaultValue){
+				var meta = document.getElementsByName(name);
+				return meta.length > 0 ? meta[0].content : defaultValue;
+			},
+			valueFn : function(value){
+				return function(){
+					return value;
+				}
+			},
+			forEach : function(coll, fn, scope, callType){
+				var callType = callType || 'call';
+				if(!coll || typeof coll !== 'object'){
+					return;
+				}
+				if(coll instanceof Array){
+					for(var i=0;i<coll.length; i++){
+						fn[callType](scope, coll[i]);
+					}
+				}else{
+					for(var key in coll){
+						if(typeof coll[key] !== 'function'){
+							fn[callType](scope, coll[key]);
+						}
+					}
+				}
+			},
+			die : function(message, delay){
+				if(delay < 0){
+					return;
+				}
+				if(!delay){
+					throw new Error(message);
+				}
+				return setTimeout(function(){
+					throw new Error(message);
+				}, delay);
+			}		
+		}
+		this.utils = utils.valueFn(utils);
+		return utils;
+	},
+	errors : {
+		timedOut : "It seems to be taking too long to find a container.  Make sure that a container provider (e.g. oasis.Container) is loaded ASAP after Modules.js"
 	}
 });

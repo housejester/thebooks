@@ -11,7 +11,8 @@ if(typeof Modules === 'undefined'){
 Modules.add({
 	name : "oasis.ModuleContainer",
 	module : function(){
-		var ModuleContainer = function(){
+		var ModuleContainer = function(parent){
+			this.parent = parent || {get:ModuleContainer.valueFn(null)};
 			this._MODULES = {};
 		}
 		ModuleContainer.thunk = function(obj, method){
@@ -33,10 +34,10 @@ Modules.add({
 				moduleConfig.module = ModuleContainer.thunk(moduleConfig, 'module');
 			},
 			using : function(reqs, fn){
-				
+				console.log('container using '+reqs.join());
 			},
-			lookup : function(name){
-				return this._MODULES[name];
+			get : function(name){
+				return this._MODULES[name] || this.parent.get(name);
 			}
 		}
 		this.module = ModuleContainer.valueFn(ModuleContainer);
