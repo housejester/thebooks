@@ -1,7 +1,8 @@
 <html>
 	<head>
-		<meta name="Modules:ContainerName" content="FakeContainer" />
-		<script type="text/javascript" src="js/oasis/Modules.js"></script>
+		<meta name="Modules:ContainerName" content="other.ModuleContainer" />
+		<script type="text/javascript" src="js/other/Modules.js"></script>
+		<script type="text/javascript" src="js/other/other.js"></script>
 		<script type="text/javascript">
 		Modules.add({
 			name : "FakeContainer",
@@ -23,12 +24,13 @@
 			name : "before"
 		});
 		</script>
-		<script type="text/javascript" src="js/oasis/ModuleContainer.js"></script>
+		<script type="text/javascript" src="js/other/ModuleContainer.js"></script>
 		<script type="text/javascript">
+			Modules.using(["Foo", "Bar"], function(){});
 			Modules.add({
 				name : "after"
 			});
-			Modules.using(["Foo", "Bar"], function(){});
+			console.log("get: ", Modules.get("before"));
 		</script>
 	</head>
 	<body>

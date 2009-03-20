@@ -1,9 +1,12 @@
 Modules.add({
-	name : "oasis.ModuleContainer",
-	module : function(){
-		var utils = this.utils();
+	name : "other.ModuleContainer",
+	requires : {
+		"other" : "other"
+	},
+	module : function(env){
+		var utils = this.utils(env);
 		var ModuleContainer = function(parent){
-			this.parent = parent || {get:utils.valueFn()};
+			this.parent = parent || {get:env.valueFn()};
 			this._MODULES = {};
 		}
 		ModuleContainer.prototype = {
@@ -19,25 +22,20 @@ Modules.add({
 				return this._MODULES[name] || this.parent.get(name);
 			}
 		}
-		this.module = utils.valueFn(ModuleContainer);
+		this.module = env.other.valueFn(ModuleContainer);
 		return ModuleContainer;
 	},
-	utils : function(){
+	utils : function(env){
 		var utils = {
 			thunk : function(obj, method){
 				return function(){
 					var value = obj[method].apply(obj, arguments);
-					obj[method] = ModuleContainer.valueFn(value);
-					return value;
-				}
-			},
-			valueFn : function(value){
-				return function(){
+					obj[method] = env.other.valueFn(value);
 					return value;
 				}
 			}
 		}
-		this.utils = utils.valueFn(utils);
+		this.utils = env.other.valueFn(utils);
 		return utils;
 	}
 });
