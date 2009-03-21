@@ -2,7 +2,6 @@ if(typeof Modules === 'undefined'){
 	var Modules = {
 		add : function(config){
 			Modules = new (config.module())();
-			Modules.add(config);
 		}
 	};
 }

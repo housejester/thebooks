@@ -2,22 +2,29 @@
 	<head>
 		<meta name="Modules:ContainerName" content="other.ModuleContainer" />
 		<script type="text/javascript" src="js/other/Modules.js"></script>
-		<script type="text/javascript" src="js/other/other.js"></script>
 		<script type="text/javascript">
 		Modules.add({
 			name : "FakeContainer",
-			module: function(){
-				var FakeContainer = function(){
+			requires : {
+				"other":"other", 
+				"ModuleContainer" : "other.ModuleContainer"
+			},
+			module: function(env){
+				console.log("Fake module: ", env);
+				var FakeContainer = function(modules){
+					env.ModuleContainer.call(this, modules);
 				}
-				FakeContainer.prototype = {
-					using : function(reqs, fn){
+				FakeContainer.prototype = new env.ModuleContainer();
+				FakeContainer.prototype.using = function(reqs, fn){
 						console.log('fake using '+reqs.join());
-					},
-					add : function( config ){
-						console.log('fake add '+config.name);
-					}
 				}
 				return FakeContainer;
+			},
+			bootstrap : function(added){
+				console.log("fake bootstrap.  added: ", added);
+				var ModuleContainer = added['other.ModuleContainer'];
+				this.resolveDeps = ModuleContainer.resolveDeps;
+				return ModuleContainer.bootstrap.call(this, added);
 			}
 		});
 		Modules.add({
@@ -25,8 +32,11 @@
 		});
 		</script>
 		<script type="text/javascript" src="js/other/ModuleContainer.js"></script>
+		<script type="text/javascript" src="js/other/other.js"></script>
 		<script type="text/javascript">
-			Modules.using(["Foo", "Bar"], function(){});
+			Modules.using(["other", "other.BootModule"], function(env){
+				console.log('used...', env);
+			});
 			Modules.add({
 				name : "after"
 			});
