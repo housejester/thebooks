@@ -17,13 +17,6 @@ Modules.add({
 				return this.added[name];
 			},
 			using : function(reqs, fn){
-				if(reqs instanceof Array){
-					var reqsHash = {};
-					for(var i=0;i<reqs.length;i++){
-						reqsHash[reqs[i]] = reqs[i];
-					}
-					reqs = reqsHash;
-				}
 				console.log("in mc.using: ", reqs, env);
 				var deps =  resolve(reqs, this, this.resolved);
 				if(deps.notFound){
@@ -52,6 +45,13 @@ Modules.add({
 		var deps = {found:{}};
 		if(!reqs){
 			return deps;
+		}
+		if(reqs instanceof Array){
+			var reqsHash = {};
+			for(var i=0;i<reqs.length;i++){
+				reqsHash[reqs[i]] = reqs[i];
+			}
+			reqs = reqsHash;
 		}
 		
 		for(var key in reqs){
