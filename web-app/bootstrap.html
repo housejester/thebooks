@@ -6,7 +6,6 @@
 		Modules.add({
 			name : "FakeContainer",
 			requires : {
-				"other":"other", 
 				"ModuleContainer" : "other.ModuleContainer"
 			},
 			module: function(env){
@@ -32,9 +31,8 @@
 		});
 		</script>
 		<script type="text/javascript" src="js/other/ModuleContainer.js"></script>
-		<script type="text/javascript" src="js/other/other.js"></script>
 		<script type="text/javascript">
-			Modules.using(["other", "other.BootModule"], function(env){
+			Modules.using(["other.BootModule"], function(env){
 				console.log('used...', env);
 			});
 			Modules.add({

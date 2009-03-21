@@ -1,8 +1,5 @@
 Modules.add({
 	name : "other.ModuleContainer",
-	requires : {
-		"other" : "other"
-	},
 	module: function (env){
 		var resolve = this.resolveDeps;
 		var ModuleContainer = function(modules){
@@ -16,11 +13,19 @@ Modules.add({
 			get : function(name){
 				return this.added[name];
 			},
-			using : function(reqs, fn){
+			using : function(reqs, fn, immediate){
 				console.log("in mc.using: ", reqs, env);
 				var deps =  resolve(reqs, this, this.resolved);
 				if(deps.notFound){
 					throw new Error("Could not resolve: "+deps.notFound.join());
+				}
+				if(immediate !== true && !document.body){
+					var self = this;
+					setTimeout(
+						function(){
+							self.using(reqs, fn);
+						}, 10); //need a real dom ready
+					return;
 				}
 				fn.call(this,deps.found);
 			}

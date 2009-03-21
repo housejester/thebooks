@@ -1,20 +1,6 @@
-define({
-	name : "console",
-	module: function(){
-		return window.console || {
-			log : function(val){
-				alert(val)
-			}
-		};
-	}
-});
-define({
+Modules.add({
 	name : "thebooks.pages.Login",
-	requires : ["console"],
-	alias : {
-		"$"		:"document.getElementById",
-		"log" 	: "console.log"
-	},
+	requires : ["$", "log"],
 	module : function(env){	with(env){
 		var Login = function(){
 			log('hotness...');
@@ -24,39 +10,33 @@ define({
 	}}
 });
 
+/* silly examples of modules/services. order doesn't matter. */
+Modules.add({
+	name : "console",
+	module: function(){
+		return window.console || {
+			log : function(val){
+				alert(val)
+			}
+		};
+	}
+});
 
-oasis.using(["oasis.test.Test", "oasis.test.Mock"],function(env){
-	var Test = env.oasis.test.Test;
-	Test.create({
-		name:"Calling define",
-		worlds : {
-			"Foo" : function(){
-				return {};
-			}
-		},
-		scenario : function(world){
-			var oasis = world.oasis;
-			oasis.define({
-				name : "funky",
-				dependencies : ["foo", "bar"],
-				module : function(env){
-					
-				}
-			})
-		},
-		beforeAll : function(world){
-			
-		},
-		beforeEach : function(world){
-			
-		},
-		specs: {
-			"should add module to module list" : function(world){
-				
-			},
-			"should not immediately call the module function" : function(){
-				
-			}
+Modules.add({
+	name : "$",
+	module : function(){
+		return function(id){
+			return document.getElementById(id);
 		}
-	})
-})
+	}
+});
+
+Modules.add({
+	name : "log",
+	requires : ["console"],
+	module : function(env){
+		return function(message){
+			env.console.log(message);
+		}
+	}
+});
