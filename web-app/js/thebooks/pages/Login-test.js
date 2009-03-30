@@ -1,5 +1,5 @@
-Modules.using(["oasis.test.Test", "oasis.test.Mock"],function(env){
-	var Test = env.oasis.test.Test;
+env.using(["oasis.test.Test", "oasis.test.Mock"],function(dep){
+	var Test = dep.oasis.test.Test;
 	Test.create({
 		name:"Calling define",
 		worlds : {
@@ -9,10 +9,10 @@ Modules.using(["oasis.test.Test", "oasis.test.Mock"],function(env){
 		},
 		scenario : function(world){
 			var oasis = world.oasis;
-			oasis.define({
+			env.addType({
 				name : "funky",
 				dependencies : ["foo", "bar"],
-				module : function(env){
+				module : function(dep){
 					
 				}
 			})

@@ -1,46 +1,61 @@
 <html>
 	<head>
-		<meta name="Modules:ContainerName" content="other.ModuleContainer" />
-		<script type="text/javascript" src="js/other/BootModule.js"></script>
+		<meta name="env:TypeName" content="FakeContainer" />
+		<meta name="shade.mvc:Page" content="thebooks.pages.Login" />
 		<script type="text/javascript">
-		Modules.add({
+		if(!window.console){
+			window.console = {
+				log : function(msg){
+					window.status = msg;
+				}
+			}
+		}
+		</script>
+		<script type="text/javascript" src="js/shade/env/BootEnv.js"></script>
+		<script type="text/javascript">
+		env.add({
 			name : "FakeContainer",
 			requires : {
-				"ModuleContainer" : "other.ModuleContainer"
+				"LocalEnv" : "shade.env.LocalEnv"
 			},
-			module: function(env){
-				console.log("Fake module: ", env);
+			module: function(deps){
+				console.log("Fake module: ", deps);
 				var FakeContainer = function(modules){
-					env.ModuleContainer.call(this, modules);
+					deps.LocalEnv.call(this, modules);
 				}
-				FakeContainer.prototype = new env.ModuleContainer();
-				FakeContainer.prototype.using = function(reqs, fn){
+				FakeContainer.prototype = new deps.LocalEnv();
+				FakeContainer.prototype.using = function(reqs, fn, imm, tryNum){
 						console.log('fake using '+reqs.join());
+						deps.LocalEnv.prototype.using.call(this, reqs, fn, imm, tryNum);
 				}
 				return FakeContainer;
 			},
 			bootstrap : function(added){
 				console.log("fake bootstrap.  added: ", added);
-				var ModuleContainer = added['other.ModuleContainer'];
-				this.resolveDeps = ModuleContainer.resolveDeps;
-				return ModuleContainer.bootstrap.call(this, added);
+				var LocalEnv = added['shade.env.LocalEnv'];
+				this.resolveDeps = LocalEnv.resolveDeps;
+				return LocalEnv.bootstrap.call(this, added);
 			}
 		});
-		Modules.add({
+		env.add({
 			name : "before"
 		});
 		</script>
-		<script type="text/javascript" src="js/other/ModuleContainer.js"></script>
+		<script type="text/javascript" src="js/shade/env/LocalResolver.js"></script>
 		<script type="text/javascript">
-			Modules.using(["other.BootModule"], function(env){
-				console.log('used...', env);
+			env.using(["shade.env.BootEnv"], function(deps){
+				console.log('used...', deps);
 			});
-			Modules.add({
+			env.add({
 				name : "after"
 			});
-			console.log("get: ", Modules.get("before"));
+			console.log("get: ", env.get("before"));
 		</script>
+		<script type="text/javascript" src="js/thebooks/pages/Login.js"></script>
+		<script type="text/javascript" src="js/shade/mvc/page.js"></script>
+		<script type="text/javascript" src="js/shade/env/domready.js"></script>
 	</head>
 	<body>
+		<div id = "login">foo</div>
 	</body>
 </html>
