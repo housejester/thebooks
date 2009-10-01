@@ -34,7 +34,8 @@
 		</script>
     </head>
     <body>
-		<h1>Cash-Burn for March (today is March 19, 2009)</h1>
+		<h1>Cash-Burn for March (today is March 19, 2009) ${transactions.size()}</h1>
+
 		<table id="cash-burn" class="grid">
 			<thead>
 				<tr class="head1">
@@ -47,6 +48,9 @@
 					<th class="sep" colspan="2">
 						Her Checking
 					</th>
+                    <th class="sep">
+                        Combined
+                    </th>
 				</tr>
 				<tr>
 					<th>Date</th>
@@ -55,105 +59,98 @@
 					<th class="amt">Balance</th>
 					<th class="sep amt">Amount</th>
 					<th class="amt">Balance</th>
+                    <th class="sep amt">Balance</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="even">
-					<td class="date">Mar 01</td>
-					<td class="stacked"><a href="#">Carry-Over Balance</a></td>
-					<td class="sep amt">&nbsp;</td>
-					<td class="amt pos">1,332.31</td>
-					<td class="sep amt pos">&nbsp;</td>
-					<td class="amt pos">12.11</td>
-				</tr>
-				<tr class="odd reconciled">
-					<td class="date">Mar 01</td>
-					<td class="stacked">
-						<div class="top description"><a href="#">Rent</a></div>
-						<div class="bottom">[<a href="#">bill</a>, <a href="#">housing</a>]</div>
-					</td>
-					<td class="sep amt neg">1,250.00</td>
-					<td class="amt pos">82.31</td>
-					<td class="sep amt pos">&nbsp;</td>
-					<td class="amt pos">12.11</td>
-				</tr>
-				<tr class="even reconciled">
-					<td class="date">Mar 14</td>
-					<td class="stacked">
-						<div class="top description"><a href="#">Taco Bell</a></div>
-						<div class="bottom">[<a href="#">restaurant</a>, <a href="#">hers</a>, <a href="#">fun fund</a>]</div>
-					</td>
-					<td class="sep amt pos">&nbsp;</td>
-					<td class="amt pos">82.31</td>
-					<td class="sep amt neg">7.47</td>
-					<td class="amt pos">4.62</td>
-				</tr>
-				<tr class="odd">
-					<td class="date">Mar 16</td>
-					<td class="stacked">
-						<div class="top description"><a href="#">His Paycheck</a></div>
-						<div class="bottom">[<a href="#">pay</a>, <a href="#">his</a>]</div>
-					</td>
-					<td class="sep amt pos">1,921.39</td>
-					<td class="amt pos">2,003.70</td>
-					<td class="sep amt pos">&nbsp;</td>
-					<td class="amt pos">4.62</td>
-				</tr>
-				<tr class="even">
-					<td class="date">Mar 18</td>
-					<td class="stacked">
-						<div class="top description"><a href="#">Costco</a></div>
-						<div class="bottom">[<a href="#">food</a>]</div>
-					</td>
-					<td class="sep amt neg">213.40</td>
-					<td class="amt pos">1,790.30</td>
-					<td class="sep amt pos">&nbsp;</td>
-					<td class="amt pos">4.62</td>
-				</tr>
-				<tr class="odd next-scheduled">
-					<td class="date">Mar 19</td>
-					<td class="stacked">
-						<div class="top description"><a href="#">Her Paycheck</a></div>
-						<div class="bottom">[<a href="#">pay</a>,<a href="#">hers</a>]</div>
-					</td>
-					<td class="sep amt">&nbsp;</td>
-					<td class="amt pos">1,790.30</td>
-					<td class="sep amt pos">1,501.27</td>
-					<td class="amt pos">1,505.89</td>
-				</tr>
-				<tr class="even future">
-					<td class="date">Mar 22</td>
-					<td class="stacked">
-						<div class="top description"><a href="#">Comcast</a></div>
-						<div class="bottom">[<a href="#">bill</a>,<a href="#">utility</a>]</div>
-					</td>
-					<td class="sep amt">&nbsp;</td>
-					<td class="amt pos">1,790.30</td>
-					<td class="sep amt neg">38.81</td>
-					<td class="amt pos">1,467.08</td>
-				</tr>
-				<tr class="odd future">
-					<td class="date">Mar 23</td>
-					<td class="stacked">
-						<div class="top description"><a href="#">T-Mobile</a></div>
-						<div class="bottom">[<a href="#">bill</a>,<a href="#">utility</a>]</div>
-					</td>
-					<td class="sep amt">&nbsp;</td>
-					<td class="amt pos">1,790.30</td>
-					<td class="sep amt neg">68.32</td>
-					<td class="amt pos">1,398.76</td>
-				</tr>
-				<tr class="even future">
-					<td class="date">Mar 23</td>
-					<td class="stacked">
-						<div class="top description"><a href="#">Chase</a></div>
-						<div class="bottom">[<a href="#">bill</a>,<a href="#">credit</a>]</div>
-					</td>
-					<td class="sep amt neg">150.00</td>
-					<td class="amt pos">1,640.30</td>
-					<td class="sep amt">&nbsp;</td>
-					<td class="amt pos">1,398.76</td>
-				</tr>
+            <g:each in="${transactions}" var="tx" status="i">
+              <tr class="${ (i % 2) == 0 ? 'even' : 'odd'} reconciled">
+                <td class="date"><g:formatDate format="MMM dd" date="${tx.clearDate}" /></td>
+                <td class="stacked">
+                    <div class="top description"><a href="#">${tx.description}</a></div>
+                    <div class="bottom">
+                      <g:if test="${tx.category}">
+                        [<a href="#">${tx.category}</a>]
+                      </g:if>
+                    </div>
+                </td>
+
+                <g:if test="${tx.commerceAmount < 0}">
+                  <g:set var="amtCls" value="neg"/>
+                </g:if>
+                <g:else>
+                  <g:set var="amtCls" value="pos"/>
+                </g:else>
+                <td class="sep amt ${amtCls}">
+                  <g:if test="${tx.commerceAmount != 0}">
+                    <g:formatNumber format="#,###,###.00" number="${tx.commerceAmount/100}" />
+                  </g:if>
+                  <g:else>
+                    &nbsp;
+                  </g:else>
+                </td>
+
+                <g:if test="${tx.commerceBalance < 0}">
+                  <g:set var="amtCls" value="neg"/>
+                </g:if>
+                <g:else>
+                  <g:set var="amtCls" value="pos"/>
+                </g:else>
+                <td class="amt ${amtCls}">
+                  <g:if test="${tx.commerceBalance != 0}">
+                    <g:formatNumber format="#,###,###.00" number="${tx.commerceBalance/100}" />
+                  </g:if>
+                  <g:else>
+                    &nbsp;
+                  </g:else>
+                </td>
+
+                <g:if test="${tx.usbankAmount < 0}">
+                  <g:set var="amtCls" value="neg"/>
+                </g:if>
+                <g:else>
+                  <g:set var="amtCls" value="pos"/>
+                </g:else>
+                <td class="sep amt ${amtCls}">
+                  <g:if test="${tx.usbankAmount != 0}">
+                    <g:formatNumber format="#,###,###.00" number="${tx.usbankAmount/100}" />
+                  </g:if>
+                  <g:else>
+                    &nbsp;
+                  </g:else>
+                </td>
+
+                <g:if test="${tx.usbankBalance < 0}">
+                  <g:set var="amtCls" value="neg"/>
+                </g:if>
+                <g:else>
+                  <g:set var="amtCls" value="pos"/>
+                </g:else>
+                <td class="amt ${amtCls}">
+                  <g:if test="${tx.usbankBalance != 0}">
+                    <g:formatNumber format="#,###,###.00" number="${tx.usbankBalance/100}" />
+                  </g:if>
+                  <g:else>
+                    &nbsp;
+                  </g:else>
+                </td>
+
+                <g:if test="${tx.balance < 0}">
+                  <g:set var="amtCls" value="neg"/>
+                </g:if>
+                <g:else>
+                  <g:set var="amtCls" value="pos"/>
+                </g:else>
+                <td class="sep amt ${amtCls}">
+                  <g:if test="${tx.balance != 0}">
+                    <g:formatNumber format="#,###,###.00" number="${tx.balance/100}" />
+                  </g:if>
+                  <g:else>
+                    &nbsp;
+                  </g:else>
+                </td>
+            </tr>
+            </g:each>
 			</tbody>
 		</table>
 		

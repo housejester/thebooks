@@ -19,8 +19,12 @@ environments {
 	}
 	test {
 		dataSource {
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "root"
+            password =  ""
+            dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 			dbCreate = "update"
-			url = "jdbc:hsqldb:mem:testDb"
+            url = "jdbc:mysql://localhost/thebooks"
 		}
 	}
 	production {

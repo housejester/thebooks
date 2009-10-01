@@ -4,6 +4,7 @@ class UserController {
 	def beforeInterceptor = [action:this.&checkLoggedIn,except:['login','logout','register','noAccess']]
 
 	def user = null
+    List transactions
 
 	def checkLoggedIn = {
 		if(!session.user){
@@ -27,6 +28,7 @@ class UserController {
 			render(view : 'homeNotSetupYet')
 			return;
 		}
+        transactions = com.thebooks.domain.Transaction.list();
 	}
 	def dojo = {
 		render(view:'dojo-home')
