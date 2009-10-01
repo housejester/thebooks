@@ -34,7 +34,8 @@
 		</script>
     </head>
     <body>
-		<h1>Cash-Burn for March (today is March 19, 2009) ${transactions.size()}</h1>
+		<h1>Cash-Burn for <g:formatDate format="MMMM" date="${new Date()}" />
+        (today is <g:formatDate format="MMMM dd, yyyy" date="${new Date()}" />)</h1>
 
 		<table id="cash-burn" class="grid">
 			<thead>
@@ -74,14 +75,7 @@
                       </g:if>
                     </div>
                 </td>
-
-                <g:if test="${tx.commerceAmount < 0}">
-                  <g:set var="amtCls" value="neg"/>
-                </g:if>
-                <g:else>
-                  <g:set var="amtCls" value="pos"/>
-                </g:else>
-                <td class="sep amt ${amtCls}">
+                <td class="sep amt ${ tx.commerceAmount < 0 ? 'neg' : 'pos'}">
                   <g:if test="${tx.commerceAmount != 0}">
                     <g:formatNumber format="#,###,###.00" number="${tx.commerceAmount/100}" />
                   </g:if>
@@ -89,14 +83,7 @@
                     &nbsp;
                   </g:else>
                 </td>
-
-                <g:if test="${tx.commerceBalance < 0}">
-                  <g:set var="amtCls" value="neg"/>
-                </g:if>
-                <g:else>
-                  <g:set var="amtCls" value="pos"/>
-                </g:else>
-                <td class="amt ${amtCls}">
+                <td class="amt ${ tx.commerceBalance < 0 ? 'neg' : 'pos'}">
                   <g:if test="${tx.commerceBalance != 0}">
                     <g:formatNumber format="#,###,###.00" number="${tx.commerceBalance/100}" />
                   </g:if>
@@ -104,14 +91,7 @@
                     &nbsp;
                   </g:else>
                 </td>
-
-                <g:if test="${tx.usbankAmount < 0}">
-                  <g:set var="amtCls" value="neg"/>
-                </g:if>
-                <g:else>
-                  <g:set var="amtCls" value="pos"/>
-                </g:else>
-                <td class="sep amt ${amtCls}">
+                <td class="sep amt ${ tx.usbankAmount < 0 ? 'neg' : 'pos'}">
                   <g:if test="${tx.usbankAmount != 0}">
                     <g:formatNumber format="#,###,###.00" number="${tx.usbankAmount/100}" />
                   </g:if>
@@ -119,14 +99,7 @@
                     &nbsp;
                   </g:else>
                 </td>
-
-                <g:if test="${tx.usbankBalance < 0}">
-                  <g:set var="amtCls" value="neg"/>
-                </g:if>
-                <g:else>
-                  <g:set var="amtCls" value="pos"/>
-                </g:else>
-                <td class="amt ${amtCls}">
+                <td class="amt ${ tx.usbankBalance < 0 ? 'neg' : 'pos'}">
                   <g:if test="${tx.usbankBalance != 0}">
                     <g:formatNumber format="#,###,###.00" number="${tx.usbankBalance/100}" />
                   </g:if>
@@ -134,14 +107,7 @@
                     &nbsp;
                   </g:else>
                 </td>
-
-                <g:if test="${tx.balance < 0}">
-                  <g:set var="amtCls" value="neg"/>
-                </g:if>
-                <g:else>
-                  <g:set var="amtCls" value="pos"/>
-                </g:else>
-                <td class="sep amt ${amtCls}">
+                <td class="sep amt ${ tx.balance < 0 ? 'neg' : 'pos'}">
                   <g:if test="${tx.balance != 0}">
                     <g:formatNumber format="#,###,###.00" number="${tx.balance/100}" />
                   </g:if>
