@@ -10,8 +10,6 @@
 				this.config = config;
 				var table = [];
 				buildTable(table, config.data);
-				console.log(config.view);
-				console.log(table.join(''));
 				document.getElementById(config.view).innerHTML = table.join('');
 			}
 			function buildTable(buff, data){
