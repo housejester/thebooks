@@ -11,6 +11,7 @@ class Transaction {
   Integer usbankAmount
   Integer usbankBalance
   Integer balance
+  Boolean reconciled
 
   static mapping = {
     clearDate column:"clear_date"

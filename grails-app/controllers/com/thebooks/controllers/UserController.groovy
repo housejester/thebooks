@@ -28,7 +28,21 @@ class UserController {
 			render(view : 'homeNotSetupYet')
 			return;
 		}
-        transactions = com.thebooks.domain.Transaction.list();
+        def lastReconciled = com.thebooks.domain.Transaction.findAllByReconciled(1, [max:1, sort:"clearDate", order:"desc"]);
+        if(lastReconciled.size() == 0){
+          transactions = com.thebooks.domain.Transaction.withCriteria{
+            maxResults(20)
+            order("clearDate","asc")
+            order("id", "asc")
+          }
+        }else{
+          transactions = com.thebooks.domain.Transaction.withCriteria{
+              ge("clearDate", lastReconciled.get(0).clearDate)
+              maxResults(20)
+              order("clearDate","asc")
+              order("id", "asc")
+          }
+        }
 	}
 	def dojo = {
 		render(view:'dojo-home')
