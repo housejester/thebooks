@@ -216,3 +216,22 @@ tr .sep{
 .reconciled .description, .reconciled .date{
 	text-decoration:line-through;
 }
+.grid .add-tx .input {
+    padding:0;
+}
+.grid .add-tx .stacked .top {
+    padding:0;
+}
+.grid input {
+    margin : 0;
+    width : 40px;
+}
+.grid .description input {
+    width : 170px;
+}
+.grid .bottom input {
+    width : 80px;
+}
+.grid .amt input {
+    width: 50px;
+}

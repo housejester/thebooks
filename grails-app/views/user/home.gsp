@@ -37,6 +37,11 @@
 		<h1>Cash-Burn for <g:formatDate format="MMMM" date="${new Date()}" />
         (today is <g:formatDate format="MMMM dd, yyyy" date="${new Date()}" />)</h1>
 
+    <g:if test="${pastUnreconciledCount > 0}">
+      Warning!  There are ${pastUnreconciledCount} things that haven't cleared that prolly should have.
+    </g:if>
+    <form action="addTransaction" name="addTransaction" method="POST">
+
 		<table id="cash-burn" class="grid">
 			<thead>
 				<tr class="head1">
@@ -64,8 +69,33 @@
 				</tr>
 			</thead>
 			<tbody>
+              <tr class="odd add-tx">
+                <input name="commerceBalance" value="0" type="hidden"/>
+                <input name="usbankBalance" value="0" type="hidden"/>
+                <input name="balance" value="0" type="hidden"/>
+                <input name="reconciled" value="false" type="hidden"/>
+                <g:set var="today"><g:formatDate format="MMM dd" date="${new Date()}"/></g:set>
+                <td class="date input"><input name="clearDate" value="${today}"/></td>
+                <td class="stacked input">
+                    <div class="top description"><input name="description"/></div>
+                    <div class="bottom">
+                      <input name="category"/>
+                    </div>
+                </td>
+                <td class="sep amt input"><input name="commerceAmount" onkeypress="return submitFormOnEnter(this, event);"/></td>
+                <td class="amt ${ lastReconciled.commerceBalance < 0 ? 'neg' : 'pos'}">
+                  <g:formatNumber format="#,###,###.00" number="${lastReconciled.commerceBalance/100}" />
+                </td>
+                <td class="sep amt input"><input name="usbankAmount" onkeypress="return submitFormOnEnter(this, event);"/></td>
+                <td class="amt ${ lastReconciled.usbankBalance < 0 ? 'neg' : 'pos'}">
+                  <g:formatNumber format="#,###,###.00" number="${lastReconciled.usbankBalance/100}" />
+                </td>
+                <td class="sep amt ${ lastReconciled.balance < 0 ? 'neg' : 'pos'}">
+                  <g:formatNumber format="#,###,###.00" number="${lastReconciled.balance/100}" />
+                </td>
+              </tr>
             <g:each in="${transactions}" var="tx" status="i">
-              <tr class="${ (i % 2) == 0 ? 'even' : 'odd'} reconciled">
+              <tr class="${ (i % 2) == 0 ? 'even' : 'odd'} ${ tx.reconciled ? 'reconciled' : 'pending'}">
                 <td class="date"><g:formatDate format="MMM dd" date="${tx.clearDate}" /></td>
                 <td class="stacked">
                     <div class="top description"><a href="#">${tx.description}</a></div>
@@ -119,6 +149,7 @@
             </g:each>
 			</tbody>
 		</table>
+    </form>
 		
 	</body>
 </html>

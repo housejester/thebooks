@@ -1,10 +1,13 @@
 package com.thebooks.controllers
+import com.thebooks.domain.Transaction
 
 class UserController {
 	def beforeInterceptor = [action:this.&checkLoggedIn,except:['login','logout','register','noAccess']]
 
 	def user = null
     List transactions
+    Integer pastUnreconciledCount
+    Transaction lastReconciled
 
 	def checkLoggedIn = {
 		if(!session.user){
@@ -23,25 +26,55 @@ class UserController {
 	  	else 
 			render(view:'login')
 	 }
+    def addTransaction = {
+      if(!params.usbankAmount){
+        params.usbankAmount = 0;
+      }
+      if(!params.commerceAmount){
+        params.commerceAmount = 0;
+      }
+        def tx = new Transaction(params);
+        def date = new Date();
+        date.month = tx.clearDate.month;
+        date.date = tx.clearDate.date;
+        tx.setClearDate(date);
+        if(!tx.save()){
+           tx.errors.each {
+                println it
+           }
+          redirect(controller:'user', action:'home', params:[error:'error'])
+        }else{
+          redirect(controller:'user', action:'home')
+        }
+    }
 	def home = {
 		if(!user.setupComplete){
 			render(view : 'homeNotSetupYet')
 			return;
 		}
-        def lastReconciled = com.thebooks.domain.Transaction.findAllByReconciled(1, [max:1, sort:"clearDate", order:"desc"]);
-        if(lastReconciled.size() == 0){
-          transactions = com.thebooks.domain.Transaction.withCriteria{
+        def lastRec = Transaction.withCriteria{
+          eq("reconciled", true)
+          maxResults(1)
+          order("clearDate","desc")
+          order("id", "desc")
+        }
+        if(lastRec.size() == 0){
+          lastReconciled = new Transaction();
+          pastUnreconciledCount = 0
+          transactions = Transaction.withCriteria{
             maxResults(20)
-            order("clearDate","asc")
-            order("id", "asc")
+            order("clearDate","desc")
+            order("id", "desc")
           }
         }else{
-          transactions = com.thebooks.domain.Transaction.withCriteria{
-              ge("clearDate", lastReconciled.get(0).clearDate)
+          lastReconciled = lastRec.get(0)
+          transactions = Transaction.withCriteria{
+              ge("clearDate", lastReconciled.clearDate)
               maxResults(20)
-              order("clearDate","asc")
-              order("id", "asc")
+              order("clearDate","desc")
+              order("id", "desc")
           }
+          pastUnreconciledCount = Transaction.countByClearDateLessThanAndReconciled(lastReconciled.clearDate, 0)
         }
 	}
 	def dojo = {
