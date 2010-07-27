@@ -1,26 +1,21 @@
 package com.thebooks.domain
 
-class Transaction {
+class TransactionItem {
   Long id
   Long version
   Date clearDate
   String description
   String category
   Integer commerceAmount
-  Integer commerceBalance
   Integer usbankAmount
-  Integer usbankBalance
-  Integer balance
   Boolean reconciled
   Boolean paid
 
   static mapping = {
-    table 'transaction_view'
+    table 'transaction'
     clearDate column:"clear_date"
     commerceAmount column:"commerce_amt"
-    commerceBalance column:"commerce_balance"
     usbankAmount column:"usbank_amt"
-    usbankBalance column:"usbank_balance"
     category column:"tx_category"
   }
 
@@ -31,9 +26,7 @@ class Transaction {
     description()
     category()
     commerceAmount()
-    commerceBalance()
     usbankAmount()
-    usbankBalance()
-    balance()
   }
+
 }

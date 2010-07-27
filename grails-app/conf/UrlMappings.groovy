@@ -5,6 +5,7 @@ class UrlMappings {
 			 // apply constraints here
 		  }
 	  }
+      "/user/home/$year?/$month?/$day?"(controller:"user", action:"home")
 	  "500"(view:'/error')
 	}
 }

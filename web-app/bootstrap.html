@@ -1,6 +1,5 @@
 <html>
 	<head>
-		<meta name="env:TypeName" content="FakeContainer" />
 		<meta name="shade.mvc:Page" content="thebooks.pages.Login" />
 		<script type="text/javascript">
 		if(!window.console){
@@ -14,36 +13,12 @@
 		<script type="text/javascript" src="js/shade/env/BootEnv.js"></script>
 		<script type="text/javascript">
 		env.add({
-			name : "FakeContainer",
-			requires : {
-				"LocalEnv" : "shade.env.LocalEnv"
-			},
-			module: function(deps){
-				console.log("Fake module: ", deps);
-				var FakeContainer = function(modules){
-					deps.LocalEnv.call(this, modules);
-				}
-				FakeContainer.prototype = new deps.LocalEnv();
-				FakeContainer.prototype.using = function(reqs, fn, imm, tryNum){
-						console.log('fake using '+reqs.join());
-						deps.LocalEnv.prototype.using.call(this, reqs, fn, imm, tryNum);
-				}
-				return FakeContainer;
-			},
-			bootstrap : function(added){
-				console.log("fake bootstrap.  added: ", added);
-				var LocalEnv = added['shade.env.LocalEnv'];
-				this.resolveDeps = LocalEnv.resolveDeps;
-				return LocalEnv.bootstrap.call(this, added);
-			}
-		});
-		env.add({
 			name : "before"
 		});
 		</script>
 		<script type="text/javascript" src="js/shade/env/LocalResolver.js"></script>
 		<script type="text/javascript">
-			env.using(["shade.env.BootEnv"], function(deps){
+			env.using({"afta":"after", "BootEnv":"shade.env.BootEnv"}, function(deps){
 				console.log('used...', deps);
 			});
 			env.add({

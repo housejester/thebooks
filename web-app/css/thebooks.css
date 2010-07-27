@@ -201,20 +201,29 @@ tr .sep{
 .stacked .bottom a{
 	color:green;
 }
-.next-scheduled td{
-	border-bottom:1px dashed orange;
+.first-future td{
+	border-top:1px dashed orange;
 }
-.future{
+.reconciled .date, .reconciled .description{
 	color: #CCCCCC;
 }
-#container .future a{
+#container .future a, #container .reconciled a{
 	font-weight:normal;
 }
 .date{
 	white-space:nowrap;
+    font-weight:bold;
+    color:#666666;
 }
-.reconciled .description, .reconciled .date{
+.paid .description, .paid .date{
 	text-decoration:line-through;
+}
+.future .date{
+    font-weight:normal;
+}
+#container .reconciled .description, #container .reconciled .date{
+    text-decoration:none;
+    font-weight:normal;
 }
 .grid .add-tx .input {
     padding:0;
@@ -234,4 +243,7 @@ tr .sep{
 }
 .grid .amt input {
     width: 50px;
+}
+.nextPrev .next{
+    float:right;
 }

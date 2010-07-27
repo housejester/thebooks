@@ -1,0 +1,8 @@
+Add ability to have explicit ordering of the transactions (but have an easy/sane default)
+Add support for bills (upcoming/scheduled transactions)
+Split out notion of accounts from one single table
+Remember/Keep paid/reconciled status when changing dates
+Do updates via ajax (so it doesn't scroll)
+Have a way to auto-reconcile when editing (like ctrl-enter works for adds)
+Nuke the total column.  It can be derived and is of questionable value.
+Fix stale connection issue (Cannot release connection...already closed)

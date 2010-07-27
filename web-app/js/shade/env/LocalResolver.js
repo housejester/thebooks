@@ -30,7 +30,11 @@ env.add({
 						if(mod){
 							var dep = this.resolved[req];
 							if(!dep){
-								dep = mod.module(arguments.callee.call(this, mod.requires).found);
+								if(typeof mod.module === 'function'){
+									dep = mod.module(arguments.callee.call(this, mod.requires).found);
+								}else{
+									dep = mod;
+								}
 								this.resolved[req] = dep;
 							}
 							deps.found[key] = this.resolved[req];
